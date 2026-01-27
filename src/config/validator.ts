@@ -183,8 +183,8 @@ export function validateConfig(config: unknown): ValidationResult {
       required: 4.5,
     },
     {
-      fg: validatedConfig.colors.tables.headerTextColor,
-      bg: validatedConfig.colors.tables.headerBackground,
+      fg: validatedConfig.tables.headerTextColor,
+      bg: validatedConfig.tables.headerBackground,
       name: 'table header text/background',
       required: 4.5,
     },
