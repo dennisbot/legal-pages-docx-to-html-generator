@@ -1,0 +1,20 @@
+version: "1.0.0"
+
+colors:
+  text: "#2c3e50"
+  textMuted: "#7f8c8d"
+  headings: "#1a252f"
+  links: "#2980b9"
+  # Missing required fields: linksHover, background, tableHeader, tableRowAlt, focus
+
+typography:
+  fontFamily: "Georgia, serif"
+  # Malformed: missing required fields
+  baseFontSize: "not a number"  # Should be number
+  baseLineHeight: 1.6
+
+# Missing required sections: spacing, breakpoints, tables, bem
+
+# Also includes invalid YAML syntax below:
+invalid_syntax: [1, 2, 3
+# Missing closing bracket

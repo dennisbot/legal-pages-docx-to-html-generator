@@ -23,15 +23,15 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per plan.md including src/, tests/, config/ directories
-- [ ] T002 Initialize Node.js project with TypeScript 5.3+ and configure tsconfig.json
-- [ ] T003 [P] Install primary dependencies: mammoth@0.6.x, js-yaml@4.1.x, yargs@17.7.x, chalk@5.3.x, zod@3.22.x
-- [ ] T004 [P] Install dev dependencies: vitest@1.1.x, @types/node, typescript, tsx
-- [ ] T005 [P] Configure ESLint and Prettier for code quality
-- [ ] T006 [P] Setup vitest.config.ts for unit and integration testing
-- [ ] T007 [P] Configure package.json scripts: build, dev, test, lint
-- [ ] T008 [P] Setup esbuild or tsup for bundling CLI executable
-- [ ] T009 [P] Create .gitignore for node_modules, dist, coverage
+- [X] T001 Create project structure per plan.md including src/, tests/, config/ directories
+- [X] T002 Initialize Node.js project with TypeScript 5.3+ and configure tsconfig.json
+- [X] T003 [P] Install primary dependencies: mammoth@0.6.x, js-yaml@4.1.x, yargs@17.7.x, chalk@5.3.x, zod@3.22.x
+- [X] T004 [P] Install dev dependencies: vitest@1.1.x, @types/node, typescript, tsx
+- [X] T005 [P] Configure ESLint and Prettier for code quality
+- [X] T006 [P] Setup vitest.config.ts for unit and integration testing
+- [X] T007 [P] Configure package.json scripts: build, dev, test, lint
+- [X] T008 [P] Setup esbuild or tsup for bundling CLI executable
+- [X] T009 [P] Create .gitignore for node_modules, dist, coverage
 
 ---
 
@@ -41,12 +41,12 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T010 Create exit code constants in src/utils/exit-codes.ts (codes 0-6 per CLI spec)
-- [ ] T011 [P] Implement error handler with stderr formatting in src/utils/error-handler.ts
-- [ ] T012 [P] Create configuration types interface in src/config/types.ts based on data-model.md
-- [ ] T013 [P] Setup CLI argument parser structure with yargs in src/cli/args-parser.ts
-- [ ] T014 [P] Implement stdout/stderr output manager in src/cli/output.ts
-- [ ] T015 Create main CLI entry point in src/cli/index.ts with argument handling and error routing
+- [X] T010 Create exit code constants in src/utils/exit-codes.ts (codes 0-6 per CLI spec)
+- [X] T011 [P] Implement error handler with stderr formatting in src/utils/error-handler.ts
+- [X] T012 [P] Create configuration types interface in src/config/types.ts based on data-model.md
+- [X] T013 [P] Setup CLI argument parser structure with yargs in src/cli/args-parser.ts
+- [X] T014 [P] Implement stdout/stderr output manager in src/cli/output.ts
+- [X] T015 Create main CLI entry point in src/cli/index.ts with argument handling and error routing
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -60,21 +60,21 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 ### Implementation for User Story 1
 
-- [ ] T016 [P] [US1] Implement file existence validator in src/validators/file-validator.ts
-- [ ] T017 [P] [US1] Implement file size validator (1MB limit) in src/validators/file-validator.ts
-- [ ] T018 [P] [US1] Implement file format validator (.docx check) in src/validators/file-validator.ts
-- [ ] T019 [US1] Create .docx parser wrapper with mammoth.js in src/converters/docx-parser.ts
-- [ ] T020 [US1] Configure mammoth style mappings for semantic HTML conversion (p → p, Heading 1 → h1, etc.)
-- [ ] T021 [US1] Implement HTML fragment generator in src/converters/html-generator.ts
-- [ ] T022 [US1] Add BEM wrapper generation (text-block-content, text-block-content--privacy-notice-content) in html-generator.ts
-- [ ] T023 [US1] Ensure no wrapper elements (html/head/body/header/footer/nav) in generated HTML
-- [ ] T024 [US1] Integrate file validation → .docx parsing → HTML generation pipeline in src/cli/index.ts
-- [ ] T025 [US1] Add error handling for file not found (exit code 2) in src/cli/index.ts
-- [ ] T026 [US1] Add error handling for file size exceeded (exit code 1) in src/cli/index.ts
-- [ ] T027 [US1] Add error handling for invalid format (exit code 3) in src/cli/index.ts
-- [ ] T028 [US1] Add error handling for corrupted .docx (exit code 4) in src/cli/index.ts
-- [ ] T029 [P] [US1] Create sample privacy notice fixture in tests/fixtures/sample-privacy-notice.docx
-- [ ] T030 [US1] Create end-to-end integration test verifying .docx → HTML conversion in tests/integration/cli.test.ts
+- [X] T016 [P] [US1] Implement file existence validator in src/validators/file-validator.ts
+- [X] T017 [P] [US1] Implement file size validator (1MB limit) in src/validators/file-validator.ts
+- [X] T018 [P] [US1] Implement file format validator (.docx check) in src/validators/file-validator.ts
+- [X] T019 [US1] Create .docx parser wrapper with mammoth.js in src/converters/docx-parser.ts
+- [X] T020 [US1] Configure mammoth style mappings for semantic HTML conversion (p → p, Heading 1 → h1, etc.)
+- [X] T021 [US1] Implement HTML fragment generator in src/converters/html-generator.ts
+- [X] T022 [US1] Add BEM wrapper generation (text-block-content, text-block-content--privacy-notice-content) in html-generator.ts
+- [X] T023 [US1] Ensure no wrapper elements (html/head/body/header/footer/nav) in generated HTML
+- [X] T024 [US1] Integrate file validation → .docx parsing → HTML generation pipeline in src/cli/index.ts
+- [X] T025 [US1] Add error handling for file not found (exit code 2) in src/cli/index.ts
+- [X] T026 [US1] Add error handling for file size exceeded (exit code 1) in src/cli/index.ts
+- [X] T027 [US1] Add error handling for invalid format (exit code 3) in src/cli/index.ts
+- [X] T028 [US1] Add error handling for corrupted .docx (exit code 4) in src/cli/index.ts
+- [X] T029 [P] [US1] Create sample privacy notice fixture in tests/fixtures/sample-privacy-notice.docx
+- [X] T030 [US1] Create end-to-end integration test verifying .docx → HTML conversion in tests/integration/cli.test.ts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can convert .docx to HTML fragments
 
