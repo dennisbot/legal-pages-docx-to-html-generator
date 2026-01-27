@@ -52,3 +52,8 @@ Thumbs.db
 # package-lock.json
 # yarn.lock
 # pnpm-lock.yaml
+
+# Testing files in root directory (ignore local test files)
+/*.html
+/*.docx
+~$*.docx
