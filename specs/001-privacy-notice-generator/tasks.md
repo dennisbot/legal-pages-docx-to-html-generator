@@ -142,7 +142,7 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 - [X] T060 [P] Add --version flag implementation showing version number in src/cli/args-parser.ts
 - [X] T061 [P] Add --help flag with usage examples per CLI interface spec in src/cli/args-parser.ts
 - [X] T062 [P] Enhance error messages with suggestions for common failures (file size, format, config)
-- [ ] T063 [P] Add warning messages for unsupported Word elements (SmartArt, embedded objects) in src/converters/docx-parser.ts
+- [X] T063 [P] Add warning messages for unsupported Word elements (SmartArt, embedded objects) in src/converters/docx-parser.ts
 - [X] T064 [P] Add warning for documents without heading structure (accessibility impact) in src/validators/heading-validator.ts
 - [ ] T065 [P] Add special character and Unicode handling in src/converters/html-generator.ts
 - [X] T066 [P] Implement color-based terminal output with chalk for errors/warnings in src/cli/output.ts
