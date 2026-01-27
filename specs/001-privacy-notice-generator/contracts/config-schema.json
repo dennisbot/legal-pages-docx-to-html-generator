@@ -1,0 +1,399 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/your-org/privacy-notice-gen/schemas/config.json",
+  "title": "Privacy Notice Generator Configuration",
+  "description": "Configuration schema for styling and behavior customization",
+  "type": "object",
+  "required": ["version", "colors", "typography", "spacing", "breakpoints", "tables", "bem"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Configuration schema version (semver)",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "colors": {
+      "type": "object",
+      "description": "Color palette with WCAG 2.1 AA validation",
+      "required": [
+        "text",
+        "textMuted",
+        "headings",
+        "links",
+        "linksHover",
+        "background",
+        "tableHeader",
+        "tableRowAlt",
+        "focus"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Body text color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#1a1a1a"]
+        },
+        "textMuted": {
+          "type": "string",
+          "description": "Secondary text color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#666666"]
+        },
+        "headings": {
+          "type": "string",
+          "description": "Heading text color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#000000"]
+        },
+        "links": {
+          "type": "string",
+          "description": "Hyperlink color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#0066cc"]
+        },
+        "linksHover": {
+          "type": "string",
+          "description": "Hyperlink hover state color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#004499"]
+        },
+        "background": {
+          "type": "string",
+          "description": "Page background color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#ffffff"]
+        },
+        "tableHeader": {
+          "type": "string",
+          "description": "Table header background color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#f5f5f5"]
+        },
+        "tableRowAlt": {
+          "type": "string",
+          "description": "Alternate table row background color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#fafafa"]
+        },
+        "focus": {
+          "type": "string",
+          "description": "Focus outline color for keyboard navigation",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#0066cc"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "typography": {
+      "type": "object",
+      "description": "Font families, sizes, weights, and line heights",
+      "required": [
+        "fontFamily",
+        "baseFontSize",
+        "baseLineHeight",
+        "scaleH1",
+        "scaleH2",
+        "scaleH3",
+        "scaleH4",
+        "fontWeightNormal",
+        "fontWeightBold",
+        "fontWeightHeadings"
+      ],
+      "properties": {
+        "fontFamily": {
+          "type": "string",
+          "description": "System font stack or web fonts",
+          "examples": ["system-ui, -apple-system, Arial, sans-serif"]
+        },
+        "headingFontFamily": {
+          "type": "string",
+          "description": "Optional separate font family for headings",
+          "examples": ["Georgia, serif"]
+        },
+        "baseFontSize": {
+          "type": "number",
+          "description": "Base font size in pixels",
+          "minimum": 14,
+          "maximum": 24,
+          "default": 16
+        },
+        "baseLineHeight": {
+          "type": "number",
+          "description": "Base line height ratio",
+          "minimum": 1.2,
+          "maximum": 2.0,
+          "default": 1.6
+        },
+        "scaleH1": {
+          "type": "number",
+          "description": "Font size multiplier for h1 elements",
+          "minimum": 1.0,
+          "default": 2.5
+        },
+        "scaleH2": {
+          "type": "number",
+          "description": "Font size multiplier for h2 elements",
+          "minimum": 1.0,
+          "default": 2.0
+        },
+        "scaleH3": {
+          "type": "number",
+          "description": "Font size multiplier for h3 elements",
+          "minimum": 1.0,
+          "default": 1.5
+        },
+        "scaleH4": {
+          "type": "number",
+          "description": "Font size multiplier for h4 elements",
+          "minimum": 1.0,
+          "default": 1.25
+        },
+        "fontWeightNormal": {
+          "type": "number",
+          "description": "Normal font weight",
+          "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          "default": 400
+        },
+        "fontWeightBold": {
+          "type": "number",
+          "description": "Bold font weight",
+          "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          "default": 700
+        },
+        "fontWeightHeadings": {
+          "type": "number",
+          "description": "Heading font weight",
+          "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          "default": 600
+        }
+      },
+      "additionalProperties": false
+    },
+    "spacing": {
+      "type": "object",
+      "description": "8px-based spacing system for consistent vertical rhythm",
+      "required": ["xs", "sm", "md", "lg", "xl", "xxl"],
+      "properties": {
+        "xs": {
+          "type": "number",
+          "description": "Extra small spacing (tight spacing for inline elements)",
+          "multipleOf": 4,
+          "default": 4
+        },
+        "sm": {
+          "type": "number",
+          "description": "Small spacing (base spacing unit)",
+          "multipleOf": 4,
+          "default": 8
+        },
+        "md": {
+          "type": "number",
+          "description": "Medium spacing (section spacing)",
+          "multipleOf": 4,
+          "default": 16
+        },
+        "lg": {
+          "type": "number",
+          "description": "Large spacing (major section spacing)",
+          "multipleOf": 4,
+          "default": 24
+        },
+        "xl": {
+          "type": "number",
+          "description": "Extra large spacing (page-level spacing)",
+          "multipleOf": 4,
+          "default": 32
+        },
+        "xxl": {
+          "type": "number",
+          "description": "2X extra large spacing (hero spacing)",
+          "multipleOf": 4,
+          "default": 48
+        }
+      },
+      "additionalProperties": false
+    },
+    "breakpoints": {
+      "type": "object",
+      "description": "Viewport widths for responsive design (mobile-first)",
+      "required": ["tiny", "small", "medium", "landscape", "large"],
+      "properties": {
+        "tiny": {
+          "type": "number",
+          "description": "Mobile portrait viewport width",
+          "minimum": 320,
+          "default": 375
+        },
+        "small": {
+          "type": "number",
+          "description": "Tablet portrait viewport width",
+          "minimum": 320,
+          "default": 768
+        },
+        "medium": {
+          "type": "number",
+          "description": "Tablet landscape viewport width",
+          "minimum": 320,
+          "default": 992
+        },
+        "landscape": {
+          "type": "number",
+          "description": "Small desktop viewport width",
+          "minimum": 320,
+          "default": 1024
+        },
+        "large": {
+          "type": "number",
+          "description": "Desktop viewport width",
+          "minimum": 320,
+          "default": 1200
+        }
+      },
+      "additionalProperties": false
+    },
+    "tables": {
+      "type": "object",
+      "description": "Table-specific styling for responsive, accessible tables",
+      "required": [
+        "borderColor",
+        "borderWidth",
+        "cellPadding",
+        "headerBackground",
+        "headerTextColor",
+        "stripedRows",
+        "mobileScrollable"
+      ],
+      "properties": {
+        "borderColor": {
+          "type": "string",
+          "description": "Table border color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#dddddd"]
+        },
+        "borderWidth": {
+          "type": "number",
+          "description": "Border width in pixels",
+          "minimum": 1,
+          "maximum": 3,
+          "default": 1
+        },
+        "cellPadding": {
+          "type": "number",
+          "description": "Cell padding in pixels",
+          "minimum": 8,
+          "maximum": 16,
+          "default": 12
+        },
+        "headerBackground": {
+          "type": "string",
+          "description": "Header row background color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#f5f5f5"]
+        },
+        "headerTextColor": {
+          "type": "string",
+          "description": "Header text color",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "examples": ["#1a1a1a"]
+        },
+        "stripedRows": {
+          "type": "boolean",
+          "description": "Enable alternating row colors",
+          "default": true
+        },
+        "mobileScrollable": {
+          "type": "boolean",
+          "description": "Enable horizontal scroll on mobile (does not stack rows)",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "bem": {
+      "type": "object",
+      "description": "BEM class name customization",
+      "required": ["baseClass", "variantClass"],
+      "properties": {
+        "baseClass": {
+          "type": "string",
+          "description": "Base block class name",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "default": "text-block-content",
+          "examples": ["text-block-content"]
+        },
+        "variantClass": {
+          "type": "string",
+          "description": "Variant modifier class name (without -- prefix)",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "default": "privacy-notice-content",
+          "examples": ["privacy-notice-content", "brand-content"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "HexColor": {
+      "type": "string",
+      "description": "6-digit hexadecimal color code",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+    }
+  },
+  "examples": [
+    {
+      "version": "1.0.0",
+      "colors": {
+        "text": "#1a1a1a",
+        "textMuted": "#666666",
+        "headings": "#000000",
+        "links": "#0066cc",
+        "linksHover": "#004499",
+        "background": "#ffffff",
+        "tableHeader": "#f5f5f5",
+        "tableRowAlt": "#fafafa",
+        "focus": "#0066cc"
+      },
+      "typography": {
+        "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
+        "baseFontSize": 16,
+        "baseLineHeight": 1.6,
+        "scaleH1": 2.5,
+        "scaleH2": 2.0,
+        "scaleH3": 1.5,
+        "scaleH4": 1.25,
+        "fontWeightNormal": 400,
+        "fontWeightBold": 700,
+        "fontWeightHeadings": 600
+      },
+      "spacing": {
+        "xs": 4,
+        "sm": 8,
+        "md": 16,
+        "lg": 24,
+        "xl": 32,
+        "xxl": 48
+      },
+      "breakpoints": {
+        "tiny": 375,
+        "small": 768,
+        "medium": 992,
+        "landscape": 1024,
+        "large": 1200
+      },
+      "tables": {
+        "borderColor": "#dddddd",
+        "borderWidth": 1,
+        "cellPadding": 12,
+        "headerBackground": "#f5f5f5",
+        "headerTextColor": "#1a1a1a",
+        "stripedRows": true,
+        "mobileScrollable": true
+      },
+      "bem": {
+        "baseClass": "text-block-content",
+        "variantClass": "privacy-notice-content"
+      }
+    }
+  ]
+}
