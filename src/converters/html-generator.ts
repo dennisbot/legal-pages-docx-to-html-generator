@@ -26,8 +26,8 @@ export function generateHTMLFragment(options: HTMLGenerationOptions): string {
   const variantClass = config.bem.variantClass;
   const fullClass = `${baseClass} ${baseClass}--${variantClass}`;
 
-  // Generate inline CSS (placeholder for now - will be implemented in Phase 4)
-  const inlineCSS = generatePlaceholderCSS(config);
+  // Generate inline CSS with responsive styles and table behavior
+  const inlineCSS = generateCSS(config);
 
   // Create the HTML fragment
   const fragment = `<style>
@@ -46,53 +46,68 @@ ${contentHTML}
 }
 
 /**
- * Generate placeholder CSS for MVP
- * This will be replaced with full CSS generation in Phase 4 (T038-T044)
+ * Generate complete CSS with responsive styles and table behavior
+ * Includes media queries for all breakpoints and mobile table scrolling
  */
-function generatePlaceholderCSS(config: PrivacyNoticeConfig): string {
-  const { colors, typography, spacing, bem } = config;
+function generateCSS(config: PrivacyNoticeConfig): string {
+  const { colors, typography, spacing, breakpoints, tables, bem } = config;
   const baseClass = bem.baseClass;
 
-  return `.${baseClass} {
+  // Base styles (mobile-first)
+  const baseStyles = `
+/* Base styles (mobile-first) */
+.${baseClass} {
   font-family: ${typography.fontFamily};
   font-size: ${typography.baseFontSize}px;
   line-height: ${typography.baseLineHeight};
   color: ${colors.text};
   background-color: ${colors.background};
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
+/* Typography - Base (mobile) */
 .${baseClass} h1 {
-  font-size: ${typography.baseFontSize * typography.scaleH1}px;
+  font-size: ${typography.baseFontSize * typography.scaleH1 * 0.75}px; /* Smaller on mobile */
   font-weight: ${typography.fontWeightHeadings};
   color: ${colors.headings};
-  margin-bottom: ${spacing.lg}px;
+  margin-top: ${spacing.lg}px;
+  margin-bottom: ${spacing.md}px;
+  line-height: 1.2;
 }
 
 .${baseClass} h2 {
-  font-size: ${typography.baseFontSize * typography.scaleH2}px;
+  font-size: ${typography.baseFontSize * typography.scaleH2 * 0.8}px;
   font-weight: ${typography.fontWeightHeadings};
   color: ${colors.headings};
+  margin-top: ${spacing.lg}px;
   margin-bottom: ${spacing.md}px;
+  line-height: 1.3;
 }
 
 .${baseClass} h3 {
-  font-size: ${typography.baseFontSize * typography.scaleH3}px;
+  font-size: ${typography.baseFontSize * typography.scaleH3 * 0.85}px;
   font-weight: ${typography.fontWeightHeadings};
   color: ${colors.headings};
-  margin-bottom: ${spacing.md}px;
+  margin-top: ${spacing.md}px;
+  margin-bottom: ${spacing.sm}px;
+  line-height: 1.4;
 }
 
 .${baseClass} h4 {
-  font-size: ${typography.baseFontSize * typography.scaleH4}px;
+  font-size: ${typography.baseFontSize * typography.scaleH4 * 0.9}px;
   font-weight: ${typography.fontWeightHeadings};
   color: ${colors.headings};
+  margin-top: ${spacing.md}px;
   margin-bottom: ${spacing.sm}px;
+  line-height: 1.4;
 }
 
 .${baseClass} p {
   margin-bottom: ${spacing.md}px;
 }
 
+/* Links */
 .${baseClass} a {
   color: ${colors.links};
   text-decoration: underline;
@@ -107,33 +122,125 @@ function generatePlaceholderCSS(config: PrivacyNoticeConfig): string {
   outline-offset: 2px;
 }
 
+/* Lists */
 .${baseClass} ul,
 .${baseClass} ol {
   margin-bottom: ${spacing.md}px;
-  padding-left: ${spacing.xl}px;
+  padding-left: ${spacing.lg}px;
 }
 
 .${baseClass} li {
   margin-bottom: ${spacing.sm}px;
 }
 
+/* Tables - Mobile (horizontal scroll) */
 .${baseClass} table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: ${spacing.lg}px;
+  border: ${tables.borderWidth}px solid ${tables.borderColor};
+}
+
+${
+  tables.mobileScrollable
+    ? `
+/* Wrap tables in scrollable container on mobile */
+@media (max-width: ${breakpoints.small - 1}px) {
+  .${baseClass} table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    white-space: nowrap;
+  }
+}
+`
+    : ''
 }
 
 .${baseClass} th,
 .${baseClass} td {
-  padding: ${spacing.sm}px ${spacing.md}px;
+  padding: ${tables.cellPadding}px;
   text-align: left;
-  border: 1px solid ${colors.text};
+  border: ${tables.borderWidth}px solid ${tables.borderColor};
 }
 
 .${baseClass} th {
-  background-color: ${colors.tableHeader};
+  background-color: ${tables.headerBackground};
+  color: ${tables.headerTextColor};
   font-weight: ${typography.fontWeightBold};
+}
+
+${
+  tables.stripedRows
+    ? `
+.${baseClass} tr:nth-child(even) {
+  background-color: ${colors.tableRowAlt};
+}
+`
+    : ''
+}
+
+/* Strong and emphasis */
+.${baseClass} strong {
+  font-weight: ${typography.fontWeightBold};
+}
+
+.${baseClass} em {
+  font-style: italic;
 }`;
+
+  // Media queries for larger screens
+  const mediaQueries = `
+/* Tablet portrait and up */
+@media (min-width: ${breakpoints.small}px) {
+  .${baseClass} {
+    font-size: ${typography.baseFontSize}px;
+  }
+
+  .${baseClass} h1 {
+    font-size: ${typography.baseFontSize * typography.scaleH1 * 0.85}px;
+  }
+
+  .${baseClass} h2 {
+    font-size: ${typography.baseFontSize * typography.scaleH2 * 0.9}px;
+  }
+
+  .${baseClass} h3 {
+    font-size: ${typography.baseFontSize * typography.scaleH3 * 0.95}px;
+  }
+}
+
+/* Tablet landscape and up */
+@media (min-width: ${breakpoints.medium}px) {
+  .${baseClass} h1 {
+    font-size: ${typography.baseFontSize * typography.scaleH1 * 0.95}px;
+  }
+
+  .${baseClass} h2 {
+    font-size: ${typography.baseFontSize * typography.scaleH2 * 0.95}px;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: ${breakpoints.large}px) {
+  .${baseClass} h1 {
+    font-size: ${typography.baseFontSize * typography.scaleH1}px; /* Full size */
+  }
+
+  .${baseClass} h2 {
+    font-size: ${typography.baseFontSize * typography.scaleH2}px;
+  }
+
+  .${baseClass} h3 {
+    font-size: ${typography.baseFontSize * typography.scaleH3}px;
+  }
+
+  .${baseClass} h4 {
+    font-size: ${typography.baseFontSize * typography.scaleH4}px;
+  }
+}`;
+
+  return baseStyles + '\n' + mediaQueries;
 }
 
 /**
