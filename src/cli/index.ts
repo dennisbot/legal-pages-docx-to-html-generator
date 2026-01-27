@@ -47,6 +47,10 @@ async function main(): Promise<void> {
     const { parseDocxFile } = await import('../converters/docx-parser.js');
     const parseResult = await parseDocxFile(args.inputFile);
 
+    // Step 3.5: Validate heading hierarchy (T047)
+    const { warnIfNoHeadings } = await import('../validators/heading-validator.js');
+    warnIfNoHeadings(parseResult.html);
+
     // Step 4: Generate HTML fragment
     const { generateHTMLFragment } = await import('../converters/html-generator.js');
     const html = generateHTMLFragment({

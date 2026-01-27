@@ -88,25 +88,25 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 ### Implementation for User Story 2
 
-- [ ] T031 [P] [US2] Create default configuration YAML in config/default-config.yaml per data-model.md
-- [ ] T032 [P] [US2] Implement Zod schema for configuration validation in src/config/validator.ts
-- [ ] T033 [US2] Implement configuration loader for YAML/JSON in src/config/loader.ts with js-yaml
-- [ ] T034 [US2] Add configuration file existence check and error handling (exit code 6) in src/config/loader.ts
-- [ ] T035 [US2] Add YAML/JSON syntax validation with clear error messages (exit code 6) in src/config/validator.ts
-- [ ] T036 [US2] Implement color contrast validation (4.5:1 for normal text) in src/config/validator.ts
-- [ ] T037 [US2] Add --config CLI flag to args-parser.ts for custom configuration files
-- [ ] T038 [P] [US2] Implement CSS generator from configuration in src/converters/css-generator.ts
-- [ ] T039 [US2] Generate base styles (typography, colors, spacing) in css-generator.ts
-- [ ] T040 [US2] Generate responsive media queries for all breakpoints (tiny: 375px, small: 768px, medium: 992px, landscape: 1024px, large: 1200px) in css-generator.ts
-- [ ] T041 [US2] Generate table styles with mobile scroll behavior in css-generator.ts
+- [X] T031 [P] [US2] Create default configuration YAML in config/default-config.yaml per data-model.md
+- [X] T032 [P] [US2] Implement Zod schema for configuration validation in src/config/validator.ts
+- [X] T033 [US2] Implement configuration loader for YAML/JSON in src/config/loader.ts with js-yaml
+- [X] T034 [US2] Add configuration file existence check and error handling (exit code 6) in src/config/loader.ts
+- [X] T035 [US2] Add YAML/JSON syntax validation with clear error messages (exit code 6) in src/config/validator.ts
+- [X] T036 [US2] Implement color contrast validation (4.5:1 for normal text) in src/config/validator.ts
+- [X] T037 [US2] Add --config CLI flag to args-parser.ts for custom configuration files
+- [X] T038 [P] [US2] Implement CSS generator from configuration in src/converters/css-generator.ts
+- [X] T039 [US2] Generate base styles (typography, colors, spacing) in css-generator.ts
+- [X] T040 [US2] Generate responsive media queries for all breakpoints (tiny: 375px, small: 768px, medium: 992px, landscape: 1024px, large: 1200px) in css-generator.ts
+- [X] T041 [US2] Generate table styles with mobile scroll behavior in css-generator.ts
 - [ ] T042 [P] [US2] Implement BEM CSS scoping utility in src/utils/bem-scoper.ts
 - [ ] T043 [US2] Validate all CSS selectors are scoped to .text-block-content in bem-scoper.ts
-- [ ] T044 [US2] Inject generated CSS into HTML fragment as inline <style> tag in src/converters/html-generator.ts
-- [ ] T045 [P] [US2] Implement heading hierarchy validator in src/validators/heading-validator.ts
-- [ ] T046 [US2] Validate no skipped heading levels (e.g., h1 → h3) in heading-validator.ts
-- [ ] T047 [US2] Integrate heading validation into HTML generation pipeline in src/cli/index.ts
-- [ ] T048 [P] [US2] Create valid-config.yaml test fixture in tests/fixtures/test-configs/
-- [ ] T049 [P] [US2] Create invalid-config.yaml test fixture in tests/fixtures/test-configs/
+- [X] T044 [US2] Inject generated CSS into HTML fragment as inline <style> tag in src/converters/html-generator.ts
+- [X] T045 [P] [US2] Implement heading hierarchy validator in src/validators/heading-validator.ts
+- [X] T046 [US2] Validate no skipped heading levels (e.g., h1 → h3) in heading-validator.ts
+- [X] T047 [US2] Integrate heading validation into HTML generation pipeline in src/cli/index.ts
+- [X] T048 [P] [US2] Create valid-config.yaml test fixture in tests/fixtures/test-configs/
+- [X] T049 [P] [US2] Create invalid-config.yaml test fixture in tests/fixtures/test-configs/
 - [ ] T050 [US2] Add integration test for custom configuration loading in tests/integration/cli.test.ts
 - [ ] T051 [US2] Add integration test for configuration validation errors in tests/integration/error-handling.test.ts
 
@@ -122,13 +122,13 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 ### Implementation for User Story 3
 
-- [ ] T052 [P] [US3] Add --preview CLI flag to args-parser.ts
-- [ ] T053 [P] [US3] Create preview HTML wrapper generator in src/converters/html-generator.ts
-- [ ] T054 [US3] Generate complete HTML structure (DOCTYPE, html, head, body) for preview mode
-- [ ] T055 [US3] Add viewport meta tag for responsive testing in preview mode
-- [ ] T056 [US3] Wrap content in <main id="Main"> to match Umbraco structure in preview mode
-- [ ] T057 [US3] Add preview mode routing logic to CLI entry point in src/cli/index.ts
-- [ ] T058 [US3] Ensure fragment mode (default) vs preview mode outputs correct format
+- [X] T052 [P] [US3] Add --preview CLI flag to args-parser.ts
+- [X] T053 [P] [US3] Create preview HTML wrapper generator in src/converters/html-generator.ts
+- [X] T054 [US3] Generate complete HTML structure (DOCTYPE, html, head, body) for preview mode
+- [X] T055 [US3] Add viewport meta tag for responsive testing in preview mode
+- [X] T056 [US3] Wrap content in <main id="Main"> to match Umbraco structure in preview mode
+- [X] T057 [US3] Add preview mode routing logic to CLI entry point in src/cli/index.ts
+- [X] T058 [US3] Ensure fragment mode (default) vs preview mode outputs correct format
 - [ ] T059 [US3] Add integration test for --preview flag output in tests/integration/cli.test.ts
 
 **Checkpoint**: All user stories should now be independently functional - users can convert, style, and preview HTML
@@ -139,22 +139,22 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 
 **Purpose**: Improvements that affect multiple user stories and production readiness
 
-- [ ] T060 [P] Add --version flag implementation showing version number in src/cli/args-parser.ts
-- [ ] T061 [P] Add --help flag with usage examples per CLI interface spec in src/cli/args-parser.ts
-- [ ] T062 [P] Enhance error messages with suggestions for common failures (file size, format, config)
+- [X] T060 [P] Add --version flag implementation showing version number in src/cli/args-parser.ts
+- [X] T061 [P] Add --help flag with usage examples per CLI interface spec in src/cli/args-parser.ts
+- [X] T062 [P] Enhance error messages with suggestions for common failures (file size, format, config)
 - [ ] T063 [P] Add warning messages for unsupported Word elements (SmartArt, embedded objects) in src/converters/docx-parser.ts
-- [ ] T064 [P] Add warning for documents without heading structure (accessibility impact) in src/validators/heading-validator.ts
+- [X] T064 [P] Add warning for documents without heading structure (accessibility impact) in src/validators/heading-validator.ts
 - [ ] T065 [P] Add special character and Unicode handling in src/converters/html-generator.ts
-- [ ] T066 [P] Implement color-based terminal output with chalk for errors/warnings in src/cli/output.ts
-- [ ] T067 [P] Add NO_COLOR environment variable support in src/cli/output.ts
-- [ ] T068 [P] Add PRIVACY_NOTICE_CONFIG environment variable support in src/config/loader.ts
-- [ ] T069 [P] Create invalid-file.txt test fixture in tests/fixtures/
+- [X] T066 [P] Implement color-based terminal output with chalk for errors/warnings in src/cli/output.ts
+- [X] T067 [P] Add NO_COLOR environment variable support in src/cli/output.ts
+- [X] T068 [P] Add PRIVACY_NOTICE_CONFIG environment variable support in src/config/loader.ts
+- [X] T069 [P] Create invalid-file.txt test fixture in tests/fixtures/
 - [ ] T070 [P] Add edge case test for oversized file (>1MB) in tests/integration/error-handling.test.ts
 - [ ] T071 [P] Add edge case test for deeply nested lists (4+ levels) in tests/integration/cli.test.ts
 - [ ] T072 [P] Add edge case test for very wide tables in tests/integration/cli.test.ts
 - [ ] T073 [P] Add edge case test for document with no headings in tests/integration/cli.test.ts
-- [ ] T074 [P] Setup executable bin configuration in package.json for global install
-- [ ] T075 [P] Create README.md with installation and basic usage
+- [X] T074 [P] Setup executable bin configuration in package.json for global install
+- [X] T075 [P] Create README.md with installation and basic usage
 - [ ] T076 [P] Add GitHub repository link to --help output and error messages
 - [ ] T077 Code cleanup and refactoring for maintainability
 - [ ] T078 Run quickstart.md validation to ensure all documented commands work

@@ -4,6 +4,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import type { PrivacyNoticeConfig } from './types.js';
 import { handleConfigurationError } from '../utils/error-handler.js';
+import { validateConfig } from './validator.js';
 
 // Get the directory of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -39,7 +40,21 @@ export async function loadConfig(configPath?: string): Promise<PrivacyNoticeConf
       );
     }
 
-    // TODO: Validate configuration with Zod schema (Phase 4 - T032)
+    // T032: Validate configuration with Zod schema and WCAG contrast
+    const validationResult = validateConfig(config);
+    if (!validationResult.valid) {
+      const errorMessage = validationResult.errors.join('\n  ');
+      handleConfigurationError(
+        configPath,
+        `Configuration validation failed:\n  ${errorMessage}`,
+        [
+          'Check color contrast ratios (4.5:1 minimum for WCAG 2.1 AA)',
+          'Ensure all required fields are present',
+          'Verify values are within valid ranges',
+        ]
+      );
+    }
+
     return config as PrivacyNoticeConfig;
   } catch (error) {
     if (error instanceof Error) {
@@ -79,6 +94,14 @@ export async function loadDefaultConfig(): Promise<PrivacyNoticeConfig> {
     const defaultConfigPath = join(__dirname, '../../config/default-config.yaml');
     const fileContent = await readFile(defaultConfigPath, 'utf-8');
     const config = yaml.load(fileContent);
+
+    // Validate default config (should always pass, but good to check)
+    const validationResult = validateConfig(config);
+    if (!validationResult.valid) {
+      console.error('Fatal error: Default configuration is invalid');
+      console.error(validationResult.errors.join('\n'));
+      process.exit(1);
+    }
 
     return config as PrivacyNoticeConfig;
   } catch (error) {

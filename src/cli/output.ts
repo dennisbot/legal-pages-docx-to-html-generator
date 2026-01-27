@@ -1,7 +1,25 @@
 /**
- * Output management for stdout/stderr separation
+ * Output management for stdout/stderr separation with colored output
+ * T066: Implement color-based terminal output with chalk
+ * T067: Add NO_COLOR environment variable support
  * Following Unix philosophy: data to stdout, diagnostics to stderr
  */
+
+import chalk from 'chalk';
+
+/**
+ * Check if output should include color codes
+ * T067: Respects NO_COLOR environment variable
+ */
+export function shouldUseColor(): boolean {
+  // Respect NO_COLOR env var (https://no-color.org/)
+  if (process.env['NO_COLOR']) {
+    return false;
+  }
+
+  // Only use color if stderr is a TTY
+  return process.stderr.isTTY;
+}
 
 /**
  * Write HTML output to stdout
@@ -20,40 +38,58 @@ export function writeDiagnostic(message: string): void {
 }
 
 /**
- * Write error message to stderr
- * For consistency with error-handler.ts
+ * Write error message to stderr with red color
+ * T066: Use chalk for colored output
  */
 export function writeError(message: string): void {
-  console.error(message);
-}
-
-/**
- * Check if output should include color codes
- * Respects NO_COLOR environment variable
- */
-export function shouldUseColor(): boolean {
-  return !process.env['NO_COLOR'] && process.stderr.isTTY;
-}
-
-/**
- * Format text with color if color is enabled
- * This is a minimal implementation - chalk will be used if available
- */
-export function colorize(text: string, colorCode: number): string {
-  if (!shouldUseColor()) {
-    return text;
+  if (shouldUseColor()) {
+    console.error(chalk.red(message));
+  } else {
+    console.error(message);
   }
-  return `\x1b[${colorCode}m${text}\x1b[0m`;
 }
 
 /**
- * Color codes for terminal output
+ * Write warning message to stderr with yellow color
  */
-export const Colors = {
-  RED: 31,
-  GREEN: 32,
-  YELLOW: 33,
-  BLUE: 34,
-  CYAN: 36,
-  GRAY: 90,
-} as const;
+export function writeWarningColored(message: string): void {
+  if (shouldUseColor()) {
+    console.error(chalk.yellow(message));
+  } else {
+    console.error(message);
+  }
+}
+
+/**
+ * Write success message to stderr with green color
+ */
+export function writeSuccess(message: string): void {
+  if (shouldUseColor()) {
+    console.error(chalk.green(message));
+  } else {
+    console.error(message);
+  }
+}
+
+/**
+ * Write info message to stderr with cyan color
+ */
+export function writeInfo(message: string): void {
+  if (shouldUseColor()) {
+    console.error(chalk.cyan(message));
+  } else {
+    console.error(message);
+  }
+}
+
+/**
+ * Chalk color helpers (respects NO_COLOR)
+ */
+export const colors = {
+  error: (text: string) => (shouldUseColor() ? chalk.red(text) : text),
+  warning: (text: string) => (shouldUseColor() ? chalk.yellow(text) : text),
+  success: (text: string) => (shouldUseColor() ? chalk.green(text) : text),
+  info: (text: string) => (shouldUseColor() ? chalk.cyan(text) : text),
+  dim: (text: string) => (shouldUseColor() ? chalk.gray(text) : text),
+  bold: (text: string) => (shouldUseColor() ? chalk.bold(text) : text),
+};
