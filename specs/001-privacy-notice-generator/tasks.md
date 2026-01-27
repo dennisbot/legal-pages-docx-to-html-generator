@@ -155,7 +155,7 @@ Single project structure: `src/`, `tests/`, `config/` at repository root
 - [ ] T073 [P] Add edge case test for document with no headings in tests/integration/cli.test.ts
 - [X] T074 [P] Setup executable bin configuration in package.json for global install
 - [X] T075 [P] Create README.md with installation and basic usage
-- [ ] T076 [P] Add GitHub repository link to --help output and error messages
+- [X] T076 [P] Add GitHub repository link to --help output and error messages
 - [ ] T077 Code cleanup and refactoring for maintainability
 - [ ] T078 Run quickstart.md validation to ensure all documented commands work
 

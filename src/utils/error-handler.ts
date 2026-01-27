@@ -1,4 +1,5 @@
 import { ExitCodes, type ExitCode, getExitCodeDescription } from './exit-codes.js';
+import { GITHUB_ISSUES_URL } from './constants.js';
 
 export interface ErrorDetails {
   message: string;
@@ -37,6 +38,10 @@ export function handleError(error: ErrorDetails): void {
       lines.push(`  - ${suggestion}`);
     }
   }
+
+  // T076: Add GitHub link for additional help
+  lines.push('');
+  lines.push(`For more help, visit: ${GITHUB_ISSUES_URL}`);
 
   // Write to stderr
   console.error(lines.join('\n'));

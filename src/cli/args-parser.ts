@@ -3,6 +3,7 @@ import { hideBin } from 'yargs/helpers';
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { GITHUB_DOCS_URL } from '../utils/constants.js';
 
 // Get the directory of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -76,9 +77,7 @@ export function parseArguments(args: string[]): CLIArguments {
         'Generate preview page',
       ],
     ])
-    .epilog(
-      'For more information, visit: https://github.com/your-org/privacy-notice-gen'
-    )
+    .epilog(`For more information, visit: ${GITHUB_DOCS_URL}`)
     .strict()
     .parseSync();
 
