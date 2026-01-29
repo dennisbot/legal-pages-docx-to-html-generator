@@ -68,14 +68,8 @@ export function parseArguments(args: string[]): CLIArguments {
       ['$0 privacy-notice.docx', 'Convert document to HTML fragment (stdout)'],
       ['$0 privacy-notice.docx > output.html', 'Save HTML to file'],
       ['$0 privacy-notice.docx | clip', 'Copy HTML to clipboard (Windows)'],
-      [
-        '$0 privacy-notice.docx --config brand.yaml',
-        'Use custom configuration',
-      ],
-      [
-        '$0 privacy-notice.docx --preview > preview.html',
-        'Generate preview page',
-      ],
+      ['$0 privacy-notice.docx --config brand.yaml', 'Use custom configuration'],
+      ['$0 privacy-notice.docx --preview > preview.html', 'Generate preview page'],
     ])
     .epilog(`For more information, visit: ${GITHUB_DOCS_URL}`)
     .strict()

@@ -23,9 +23,9 @@ const STYLE_MAP = [
   // Tables remain as default <table>, <tr>, <td>, <th>
 
   // Text formatting
-  "b => strong",
-  "i => em",
-  "u => u",
+  'b => strong',
+  'i => em',
+  'u => u',
 
   // Links remain as default <a>
 ].join('\n');
@@ -161,7 +161,10 @@ export async function parseDocxFile(filePath: string): Promise<ParseResult> {
  */
 export function extractTextContent(html: string): string {
   // Simple regex-based text extraction (for heading validation)
-  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**

@@ -79,13 +79,10 @@ export function warnIfNoHeadings(html: string): void {
   const result = validateHeadingHierarchy(html);
 
   if (!result.hasHeadings) {
-    writeWarning(
-      'Accessibility warning: Document has no heading structure',
-      {
-        Impact: 'Screen readers rely on headings for navigation',
-        Recommendation: 'Add headings (h1, h2, h3) to structure content',
-      }
-    );
+    writeWarning('Accessibility warning: Document has no heading structure', {
+      Impact: 'Screen readers rely on headings for navigation',
+      Recommendation: 'Add headings (h1, h2, h3) to structure content',
+    });
   }
 
   // Output all warnings

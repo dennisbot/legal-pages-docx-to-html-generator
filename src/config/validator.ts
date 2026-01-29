@@ -202,7 +202,9 @@ export function validateConfig(config: unknown): ValidationResult {
   // Validate breakpoints are in ascending order
   const { tiny, small, medium, landscape, large } = validatedConfig.breakpoints;
   if (!(tiny <= small && small <= medium && medium <= landscape && landscape <= large)) {
-    errors.push('breakpoints: Must be in ascending order (tiny ≤ small ≤ medium ≤ landscape ≤ large)');
+    errors.push(
+      'breakpoints: Must be in ascending order (tiny ≤ small ≤ medium ≤ landscape ≤ large)'
+    );
   }
 
   // Validate spacing is in ascending order

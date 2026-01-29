@@ -221,7 +221,9 @@ describe('Heading Hierarchy Validator', () => {
       const result = validateHeadingHierarchy(html);
       expect(result.valid).toBe(false);
       // Should only have one warning about deep nesting despite multiple h5/h6
-      const deepNestingWarnings = result.warnings.filter((w) => w.includes('deeply nested') || w.includes('simplifying'));
+      const deepNestingWarnings = result.warnings.filter(
+        (w) => w.includes('deeply nested') || w.includes('simplifying')
+      );
       expect(deepNestingWarnings.length).toBe(1);
     });
   });

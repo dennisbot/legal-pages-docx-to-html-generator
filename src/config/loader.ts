@@ -33,26 +33,20 @@ export async function loadConfig(configPath?: string): Promise<PrivacyNoticeConf
     } else if (extension === 'json') {
       config = JSON.parse(fileContent);
     } else {
-      handleConfigurationError(
-        configPath,
-        'Unsupported file format. Use .yaml, .yml, or .json',
-        ['Save configuration as YAML or JSON file']
-      );
+      handleConfigurationError(configPath, 'Unsupported file format. Use .yaml, .yml, or .json', [
+        'Save configuration as YAML or JSON file',
+      ]);
     }
 
     // T032: Validate configuration with Zod schema and WCAG contrast
     const validationResult = validateConfig(config);
     if (!validationResult.valid) {
       const errorMessage = validationResult.errors.join('\n  ');
-      handleConfigurationError(
-        configPath,
-        `Configuration validation failed:\n  ${errorMessage}`,
-        [
-          'Check color contrast ratios (4.5:1 minimum for WCAG 2.1 AA)',
-          'Ensure all required fields are present',
-          'Verify values are within valid ranges',
-        ]
-      );
+      handleConfigurationError(configPath, `Configuration validation failed:\n  ${errorMessage}`, [
+        'Check color contrast ratios (4.5:1 minimum for WCAG 2.1 AA)',
+        'Ensure all required fields are present',
+        'Verify values are within valid ranges',
+      ]);
     }
 
     return config as PrivacyNoticeConfig;
@@ -69,11 +63,10 @@ export async function loadConfig(configPath?: string): Promise<PrivacyNoticeConf
 
       // Check if it's a YAML/JSON parsing error
       if (error instanceof yaml.YAMLException || error instanceof SyntaxError) {
-        handleConfigurationError(
-          configPath,
-          `Configuration file is malformed: ${error.message}`,
-          ['Check YAML/JSON syntax', 'Validate with a linter']
-        );
+        handleConfigurationError(configPath, `Configuration file is malformed: ${error.message}`, [
+          'Check YAML/JSON syntax',
+          'Validate with a linter',
+        ]);
       }
 
       // Generic error

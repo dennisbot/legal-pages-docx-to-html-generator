@@ -1,6 +1,10 @@
 import { stat, access } from 'fs/promises';
 import { constants } from 'fs';
-import { handleFileNotFound, handleFileSizeExceeded, handleInvalidFileFormat } from '../utils/error-handler.js';
+import {
+  handleFileNotFound,
+  handleFileSizeExceeded,
+  handleInvalidFileFormat,
+} from '../utils/error-handler.js';
 
 /** Maximum file size: 1MB in bytes */
 const MAX_FILE_SIZE = 1024 * 1024;
