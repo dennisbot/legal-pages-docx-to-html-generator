@@ -1,6 +1,5 @@
 import mammoth from 'mammoth';
 import { handleCorruptedFile } from '../utils/error-handler.js';
-import type { ConvertResult } from 'mammoth';
 
 /**
  * Style mapping for mammoth.js
@@ -132,14 +131,14 @@ function processWarnings(mammothMessages: Array<{ type: string; message: string 
  */
 export async function parseDocxFile(filePath: string): Promise<ParseResult> {
   try {
-    const result: ConvertResult = await mammoth.convertToHtml(
+    const result = await mammoth.convertToHtml(
       { path: filePath },
       {
         styleMap: STYLE_MAP,
         includeDefaultStyleMap: true,
-        convertImage: mammoth.images.imgElement((image) => {
+        convertImage: mammoth.images.imgElement(() => {
           // Skip images for now - privacy notices are typically text-only
-          return { src: '' };
+          return Promise.resolve({ src: '' });
         }),
       }
     );

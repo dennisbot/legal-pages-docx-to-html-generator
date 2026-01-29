@@ -11,7 +11,7 @@ export interface ErrorDetails {
 /**
  * Format and write error message to stderr with structured formatting
  */
-export function handleError(error: ErrorDetails): void {
+export function handleError(error: ErrorDetails): never {
   const lines: string[] = [];
 
   // Main error message

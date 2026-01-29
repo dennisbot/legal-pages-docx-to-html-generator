@@ -247,7 +247,7 @@ ${
  * Wrap HTML fragment in a complete HTML page for preview mode
  * This is for User Story 3 (T052-T056) but implementing the basic structure now
  */
-function wrapInPreviewPage(fragment: string, config: PrivacyNoticeConfig): string {
+function wrapInPreviewPage(fragment: string, _config: PrivacyNoticeConfig): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

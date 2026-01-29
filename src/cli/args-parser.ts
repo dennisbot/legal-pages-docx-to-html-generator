@@ -83,7 +83,7 @@ export function parseArguments(args: string[]): CLIArguments {
 
   return {
     inputFile: parsed.inputFile as string,
-    config: parsed.config,
-    preview: parsed.preview,
+    config: parsed.config as string | undefined,
+    preview: parsed.preview as boolean,
   };
 }
