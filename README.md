@@ -68,6 +68,19 @@ Full documentation available in `/specs/001-privacy-notice-generator/`:
 - [Data Model](./specs/001-privacy-notice-generator/data-model.md)
 - [CLI Interface](./specs/001-privacy-notice-generator/contracts/cli-interface.md)
 
+## Development
+
+### Windows Users
+
+If you're developing on Windows, npm commands may not show output correctly in Claude Code. Use this workaround:
+
+```bash
+# Instead of: npm run build
+cmd //c "npm.cmd run build"
+```
+
+See [`.claude/windows-workarounds.md`](.claude/windows-workarounds.md) for complete details.
+
 ## Project Structure
 
 ```
