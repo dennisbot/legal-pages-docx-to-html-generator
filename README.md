@@ -72,14 +72,14 @@ Full documentation available in `/specs/001-privacy-notice-generator/`:
 
 ### Windows Users
 
-If you're developing on Windows, npm commands may not show output correctly in Claude Code. Use this workaround:
+If you're developing on Windows with Claude Code, npm commands may not show output correctly. Use this workaround:
 
 ```bash
 # Instead of: npm run build
 cmd //c "npm.cmd run build"
 ```
 
-See [`.claude/windows-workarounds.md`](.claude/windows-workarounds.md) for complete details.
+This bypasses Git Bash subprocess output capture issues on Windows.
 
 ## Project Structure
 
