@@ -16,7 +16,7 @@ export interface CLIArguments {
   /** Path to the .docx file to convert */
   inputFile: string;
   /** Optional path to custom configuration file */
-  config?: string;
+  config: string | undefined;
   /** Enable preview mode (full HTML page instead of fragment) */
   preview: boolean;
 }
