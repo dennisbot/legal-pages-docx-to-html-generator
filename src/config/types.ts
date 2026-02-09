@@ -113,6 +113,26 @@ export interface TableStyling {
   stripedRows: boolean;
   /** Enable horizontal scroll on mobile (does not stack rows) */
   mobileScrollable: boolean;
+
+  // Interactive features
+  /** Enable hover effects on table rows (default: false) */
+  hoverHighlight?: boolean;
+  /** Background color for hovered table rows (default: #f0f0f0) */
+  hoverColor?: HexColor;
+
+  // Visual enhancements
+  /** Enable rounded corners on tables (default: false) */
+  roundedCorners?: boolean;
+  /** Border radius in pixels, 0-16 (default: 0) */
+  borderRadius?: number;
+
+  // Mobile optimizations
+  /** Reduce padding on mobile devices (default: false) */
+  compactMobile?: boolean;
+  /** Cell padding on mobile in pixels, 4-12 (default: 8) */
+  mobilePadding?: number;
+  /** Stack table as definition list on mobile devices (default: false) */
+  responsiveStacking?: boolean;
 }
 
 /**

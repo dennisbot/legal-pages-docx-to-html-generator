@@ -1,4 +1,5 @@
 import type { PrivacyNoticeConfig } from '../config/types.js';
+import { transformTableElements, addDataLabels } from './html-transformer.js';
 
 /**
  * Options for HTML generation
@@ -26,7 +27,15 @@ export function generateHTMLFragment(options: HTMLGenerationOptions): string {
   const variantClass = config.bem.variantClass;
   const fullClass = `${baseClass} ${baseClass}--${variantClass}`;
 
-  // Generate inline CSS with responsive styles and table behavior
+  // Transform table elements with BEM classes
+  let processedContent = transformTableElements(contentHTML, baseClass);
+
+  // Add data-label attributes for responsive stacking
+  if (config.tables.responsiveStacking) {
+    processedContent = addDataLabels(processedContent, true);
+  }
+
+  // Generate inline CSS with responsive styles and BEM selectors
   const inlineCSS = generateCSS(config);
 
   // Create the HTML fragment
@@ -34,7 +43,7 @@ export function generateHTMLFragment(options: HTMLGenerationOptions): string {
 ${inlineCSS}
 </style>
 <div class="${fullClass}">
-${contentHTML}
+${processedContent}
 </div>`;
 
   // Return fragment or preview page based on mode
@@ -133,48 +142,152 @@ function generateCSS(config: PrivacyNoticeConfig): string {
   margin-bottom: ${spacing.sm}px;
 }
 
-/* Tables - Mobile (horizontal scroll) */
-.${baseClass} table {
+/* Tables - Base structure */
+.${baseClass}__table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: ${spacing.lg}px;
   border: ${tables.borderWidth}px solid ${tables.borderColor};
+  ${tables.roundedCorners && tables.borderRadius ? `border-radius: ${tables.borderRadius}px; overflow: hidden;` : ''}
 }
 
+.${baseClass}__table-head {
+  /* Structural element, inherits from table */
+}
+
+.${baseClass}__table-body {
+  /* Structural element, inherits from table */
+}
+
+/* Table Rows */
+.${baseClass}__table-row {
+  border-bottom: ${tables.borderWidth}px solid ${tables.borderColor};
+  ${tables.hoverHighlight ? `transition: background-color 0.15s ease;` : ''}
+}
+
+.${baseClass}__table-row:last-child {
+  border-bottom: none;
+}
+
+/* Hover state for data rows */
 ${
-  tables.mobileScrollable
+  tables.hoverHighlight && tables.hoverColor
     ? `
-/* Wrap tables in scrollable container on mobile */
+.${baseClass}__table-body .${baseClass}__table-row:hover {
+  background-color: ${tables.hoverColor};
+}
+`
+    : ''
+}
+
+/* Striped rows */
+${
+  tables.stripedRows
+    ? `
+.${baseClass}__table-body .${baseClass}__table-row:nth-child(even) {
+  background-color: ${colors.tableRowAlt};
+}
+`
+    : ''
+}
+
+/* Table Cells */
+.${baseClass}__table-cell {
+  padding: ${tables.cellPadding}px;
+  text-align: left;
+  border-right: ${tables.borderWidth}px solid ${tables.borderColor};
+}
+
+.${baseClass}__table-cell:last-child {
+  border-right: none;
+}
+
+/* Header Cells */
+.${baseClass}__table-cell--header {
+  background-color: ${tables.headerBackground};
+  color: ${tables.headerTextColor};
+  font-weight: ${typography.fontWeightBold};
+}
+
+/* Sticky header for long tables */
+.${baseClass}__table-head .${baseClass}__table-row--header .${baseClass}__table-cell--header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Mobile: Compact padding */
+${
+  tables.compactMobile && tables.mobilePadding
+    ? `
 @media (max-width: ${breakpoints.small - 1}px) {
-  .${baseClass} table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    white-space: nowrap;
+  .${baseClass}__table-cell {
+    padding: ${tables.mobilePadding}px;
+    font-size: ${typography.baseFontSize * 0.875}px;
   }
 }
 `
     : ''
 }
 
-.${baseClass} th,
-.${baseClass} td {
-  padding: ${tables.cellPadding}px;
-  text-align: left;
-  border: ${tables.borderWidth}px solid ${tables.borderColor};
-}
-
-.${baseClass} th {
-  background-color: ${tables.headerBackground};
-  color: ${tables.headerTextColor};
-  font-weight: ${typography.fontWeightBold};
-}
-
+/* Mobile: Horizontal scroll */
 ${
-  tables.stripedRows
+  tables.mobileScrollable && !tables.responsiveStacking
     ? `
-.${baseClass} tr:nth-child(even) {
-  background-color: ${colors.tableRowAlt};
+@media (max-width: ${breakpoints.small - 1}px) {
+  .${baseClass}__table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+`
+    : ''
+}
+
+/* Mobile: Responsive stacking (definition list layout) */
+${
+  tables.responsiveStacking
+    ? `
+@media (max-width: ${breakpoints.small - 1}px) {
+  .${baseClass}__table,
+  .${baseClass}__table-head,
+  .${baseClass}__table-body,
+  .${baseClass}__table-row {
+    display: block;
+    width: 100%;
+  }
+
+  .${baseClass}__table-head {
+    display: none; /* Hide headers, they'll be inline */
+  }
+
+  .${baseClass}__table-row {
+    margin-bottom: ${spacing.md}px;
+    border: ${tables.borderWidth}px solid ${tables.borderColor};
+    ${tables.roundedCorners && tables.borderRadius ? `border-radius: ${tables.borderRadius}px;` : ''}
+  }
+
+  .${baseClass}__table-cell {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-bottom: ${tables.borderWidth}px solid ${tables.borderColor};
+    padding: ${tables.mobilePadding || 8}px;
+  }
+
+  .${baseClass}__table-cell:last-child {
+    border-bottom: none;
+  }
+
+  /* Add header labels before each cell using data attributes */
+  .${baseClass}__table-cell::before {
+    content: attr(data-label);
+    font-weight: ${typography.fontWeightBold};
+    display: block;
+    margin-bottom: ${spacing.xs}px;
+  }
 }
 `
     : ''

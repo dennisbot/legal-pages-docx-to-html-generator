@@ -46,6 +46,16 @@ tables:
   headerTextColor: '#1a1a1a'
   stripedRows: true
   mobileScrollable: true
+  # Interactive features (disabled by default)
+  hoverHighlight: false
+  hoverColor: '#f0f0f0'
+  # Visual enhancements (disabled by default)
+  roundedCorners: false
+  borderRadius: 0
+  # Mobile optimizations (disabled by default)
+  compactMobile: false
+  mobilePadding: 8
+  responsiveStacking: false
 
 bem:
   baseClass: 'text-block'

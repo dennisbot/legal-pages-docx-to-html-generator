@@ -514,4 +514,205 @@ describe('Configuration Validator', () => {
       expect(result.errors).toHaveLength(0);
     });
   });
+
+  describe('New Table Configuration Options', () => {
+    const validBaseConfig = {
+      version: '1.0.0',
+      colors: {
+        text: '#1a1a1a',
+        textMuted: '#666666',
+        headings: '#000000',
+        links: '#0066cc',
+        linksHover: '#004499',
+        background: '#ffffff',
+        tableHeader: '#f5f5f5',
+        tableRowAlt: '#fafafa',
+        focus: '#0066cc',
+      },
+      typography: {
+        fontFamily: 'Arial, sans-serif',
+        baseFontSize: 16,
+        baseLineHeight: 1.6,
+        scaleH1: 2.0,
+        scaleH2: 1.5,
+        scaleH3: 1.25,
+        scaleH4: 1.1,
+        fontWeightNormal: 400,
+        fontWeightBold: 700,
+        fontWeightHeadings: 700,
+      },
+      spacing: {
+        xs: 4,
+        sm: 8,
+        md: 16,
+        lg: 24,
+        xl: 32,
+        xxl: 48,
+      },
+      breakpoints: {
+        tiny: 375,
+        small: 768,
+        medium: 992,
+        landscape: 1024,
+        large: 1200,
+      },
+      tables: {
+        borderColor: '#dddddd',
+        borderWidth: 1,
+        cellPadding: 12,
+        headerBackground: '#f5f5f5',
+        headerTextColor: '#1a1a1a',
+        stripedRows: true,
+        mobileScrollable: true,
+      },
+      bem: {
+        baseClass: 'text-block-content',
+        variantClass: 'privacy-notice-content',
+      },
+    };
+
+    it('should accept valid hover configuration', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          hoverHighlight: true,
+          hoverColor: '#f0f0f0',
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    it('should reject invalid hoverColor format', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: { ...validBaseConfig.tables, hoverColor: 'blue' },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('hoverColor'))).toBe(true);
+    });
+
+    it('should reject borderRadius > 16', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: { ...validBaseConfig.tables, borderRadius: 20 },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('borderRadius'))).toBe(true);
+    });
+
+    it('should reject borderRadius < 0', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: { ...validBaseConfig.tables, borderRadius: -5 },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('borderRadius'))).toBe(true);
+    });
+
+    it('should reject mobilePadding > 12', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: { ...validBaseConfig.tables, mobilePadding: 15 },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('mobilePadding'))).toBe(true);
+    });
+
+    it('should reject mobilePadding < 4', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: { ...validBaseConfig.tables, mobilePadding: 2 },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('mobilePadding'))).toBe(true);
+    });
+
+    it('should validate hover color contrast', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          hoverHighlight: true,
+          hoverColor: '#1a1a1a', // Dark hover with dark text fails contrast
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((err) => err.includes('hover'))).toBe(true);
+      expect(result.errors.some((err) => err.includes('WCAG 2.1 AA'))).toBe(true);
+    });
+
+    it('should accept hover color with good contrast', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          hoverHighlight: true,
+          hoverColor: '#f0f0f0', // Light hover with dark text passes
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    it('should skip hover color validation when hoverHighlight is false', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          hoverHighlight: false,
+          hoverColor: '#1a1a1a', // Bad contrast but should be ignored
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(true);
+    });
+
+    it('should accept all new options with valid values', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          hoverHighlight: true,
+          hoverColor: '#f0f0f0',
+          roundedCorners: true,
+          borderRadius: 8,
+          compactMobile: true,
+          mobilePadding: 6,
+          responsiveStacking: true,
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    it('should accept config with only some new options', () => {
+      const config = {
+        ...validBaseConfig,
+        tables: {
+          ...validBaseConfig.tables,
+          roundedCorners: true,
+          borderRadius: 4,
+        },
+      };
+      const result = validateConfig(config);
+      expect(result.valid).toBe(true);
+    });
+
+    it('should accept config with no new options (backward compatible)', () => {
+      const result = validateConfig(validBaseConfig);
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+  });
 });

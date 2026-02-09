@@ -89,6 +89,19 @@ export const configSchema = z.object({
     headerTextColor: hexColorSchema,
     stripedRows: z.boolean(),
     mobileScrollable: z.boolean(),
+
+    // Interactive features
+    hoverHighlight: z.boolean().optional(),
+    hoverColor: hexColorSchema.optional(),
+
+    // Visual enhancements
+    roundedCorners: z.boolean().optional(),
+    borderRadius: z.number().min(0).max(16).optional(),
+
+    // Mobile optimizations
+    compactMobile: z.boolean().optional(),
+    mobilePadding: z.number().min(4).max(12).optional(),
+    responsiveStacking: z.boolean().optional(),
   }),
 
   bem: z.object({
@@ -195,6 +208,19 @@ export function validateConfig(config: unknown): ValidationResult {
     if (ratio < check.required) {
       errors.push(
         `${check.name}: Contrast ratio ${ratio.toFixed(2)}:1 is below required ${check.required}:1 (WCAG 2.1 AA)`
+      );
+    }
+  }
+
+  // Validate hover color contrast if hover highlighting is enabled
+  if (validatedConfig.tables.hoverHighlight && validatedConfig.tables.hoverColor) {
+    const hoverRatio = getContrastRatio(
+      validatedConfig.colors.text,
+      validatedConfig.tables.hoverColor
+    );
+    if (hoverRatio < 4.5) {
+      errors.push(
+        `text/table hover background: Contrast ratio ${hoverRatio.toFixed(2)}:1 is below required 4.5:1 (WCAG 2.1 AA)`
       );
     }
   }

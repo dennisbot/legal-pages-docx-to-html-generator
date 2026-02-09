@@ -305,6 +305,53 @@
           "type": "boolean",
           "description": "Enable horizontal scroll on mobile (does not stack rows)",
           "default": true
+        },
+        "hoverHighlight": {
+          "type": "boolean",
+          "description": "Enable hover effects on table rows",
+          "default": false,
+          "examples": [false, true]
+        },
+        "hoverColor": {
+          "type": "string",
+          "description": "Background color for hovered table rows (hex format)",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "default": "#f0f0f0",
+          "examples": ["#f0f0f0", "#e8e8e8"]
+        },
+        "roundedCorners": {
+          "type": "boolean",
+          "description": "Enable rounded corners on tables",
+          "default": false,
+          "examples": [false, true]
+        },
+        "borderRadius": {
+          "type": "number",
+          "description": "Border radius in pixels (0-16)",
+          "minimum": 0,
+          "maximum": 16,
+          "default": 0,
+          "examples": [0, 4, 8]
+        },
+        "compactMobile": {
+          "type": "boolean",
+          "description": "Reduce padding on mobile devices",
+          "default": false,
+          "examples": [false, true]
+        },
+        "mobilePadding": {
+          "type": "number",
+          "description": "Cell padding on mobile in pixels (4-12)",
+          "minimum": 4,
+          "maximum": 12,
+          "default": 8,
+          "examples": [4, 6, 8]
+        },
+        "responsiveStacking": {
+          "type": "boolean",
+          "description": "Stack table as definition list on mobile devices",
+          "default": false,
+          "examples": [false, true]
         }
       },
       "additionalProperties": false
