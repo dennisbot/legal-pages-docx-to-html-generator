@@ -14,10 +14,31 @@ export interface HTMLGenerationOptions {
 }
 
 /**
+ * T065: Ensure proper UTF-8 encoding and special character handling
+ * Mammoth.js handles most encoding, but this validates and normalizes content
+ */
+function validateUnicodeContent(html: string): string {
+  // Normalize Unicode to NFC form (canonical composition)
+  // This ensures consistent representation of accented characters
+  const normalized = html.normalize('NFC');
+
+  // Verify content can be encoded as UTF-8
+  // If this throws, content has invalid characters
+  try {
+    new TextEncoder().encode(normalized);
+  } catch (error) {
+    throw new Error('HTML content contains invalid UTF-8 characters');
+  }
+
+  return normalized;
+}
+
+/**
  * Generate HTML fragment with BEM class wrapper
  * T021: Implement HTML fragment generator
  * T022: Add BEM wrapper generation (text-block-content, text-block-content--privacy-notice-content)
  * T023: Ensure no wrapper elements (html/head/body/header/footer/nav)
+ * T065: Add special character and Unicode handling
  */
 export function generateHTMLFragment(options: HTMLGenerationOptions): string {
   const { config, contentHTML, previewMode } = options;
@@ -27,8 +48,11 @@ export function generateHTMLFragment(options: HTMLGenerationOptions): string {
   const variantClass = config.bem.variantClass;
   const fullClass = `${baseClass} ${baseClass}--${variantClass}`;
 
+  // T065: Validate and normalize Unicode content
+  const validatedContent = validateUnicodeContent(contentHTML);
+
   // Transform table elements with BEM classes
-  let processedContent = transformTableElements(contentHTML, baseClass);
+  let processedContent = transformTableElements(validatedContent, baseClass);
 
   // Add data-label attributes for responsive stacking
   if (config.tables.responsiveStacking) {

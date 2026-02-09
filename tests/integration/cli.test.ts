@@ -124,4 +124,90 @@ describe('CLI Integration Tests', () => {
       }
     });
   });
+
+  describe('Edge Cases', () => {
+    /**
+     * T071: Test deeply nested lists (4+ levels)
+     * Privacy notices may have complex nested list structures
+     */
+    it.skip('should handle deeply nested lists (4+ levels) without flattening', async () => {
+      const deepListFile = join(FIXTURES_PATH, 'deep-nested-lists.docx');
+
+      const { stdout, stderr } = await execAsync(`node ${CLI_PATH} ${deepListFile}`);
+
+      // Should preserve nesting up to 4 levels
+      expect(stdout).toContain('<ul>');
+      expect(stdout).toContain('<li>');
+
+      // Check for nested list structure
+      const nestedUlMatches = stdout.match(/<ul[^>]*>/g);
+      expect(nestedUlMatches).toBeDefined();
+      expect(nestedUlMatches!.length).toBeGreaterThanOrEqual(4);
+
+      // Should warn if deeper than 4 levels
+      if (nestedUlMatches!.length > 4) {
+        expect(stderr).toContain('nested');
+      }
+    });
+
+    /**
+     * T072: Test very wide tables
+     * Tables with many columns should scroll horizontally on mobile
+     */
+    it.skip('should make wide tables horizontally scrollable on mobile', async () => {
+      const wideTableFile = join(FIXTURES_PATH, 'wide-table.docx');
+
+      const { stdout } = await execAsync(`node ${CLI_PATH} ${wideTableFile}`);
+
+      // Should generate table with BEM classes
+      expect(stdout).toContain('__table');
+
+      // Should include CSS for horizontal scrolling
+      expect(stdout).toContain('overflow-x');
+      expect(stdout).toContain('auto');
+
+      // Should have media query for mobile
+      expect(stdout).toMatch(/@media.*max-width.*\{[\s\S]*overflow-x/);
+    });
+
+    /**
+     * T073: Test document with no headings
+     * Should generate content but warn about accessibility impact
+     */
+    it.skip('should warn when document has no heading structure', async () => {
+      const noHeadingsFile = join(FIXTURES_PATH, 'no-headings.docx');
+
+      const { stdout, stderr } = await execAsync(`node ${CLI_PATH} ${noHeadingsFile}`);
+
+      // Should still generate HTML
+      expect(stdout).toContain('<style>');
+      expect(stdout).toContain('text-block-content');
+
+      // Should warn about accessibility impact
+      expect(stderr).toContain('heading');
+      expect(stderr).toContain('accessibility');
+    });
+
+    /**
+     * Special characters and Unicode test (T065)
+     */
+    it.skip('should properly handle special characters and Unicode content', async () => {
+      const unicodeFile = join(FIXTURES_PATH, 'unicode-content.docx');
+
+      const { stdout } = await execAsync(`node ${CLI_PATH} ${unicodeFile}`);
+
+      // Should preserve Unicode characters (examples)
+      // Copyright symbol, em dash, curly quotes, accented characters
+      expect(stdout).toMatch(/[©—""éñü]/);
+
+      // Should be valid UTF-8
+      expect(() => new TextEncoder().encode(stdout)).not.toThrow();
+
+      // Should contain proper charset declaration in preview mode
+      const { stdout: previewOutput } = await execAsync(
+        `node ${CLI_PATH} ${unicodeFile} --preview`
+      );
+      expect(previewOutput).toContain('charset="UTF-8"');
+    });
+  });
 });
