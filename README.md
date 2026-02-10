@@ -66,7 +66,13 @@ npm run type-check
 
 ## Documentation
 
-Full documentation available in `/specs/001-privacy-notice-generator/`:
+### For Content Authors (Legal Team)
+
+- **[Document Formatting Guide](./DOCUMENT-FORMATTING-GUIDE.md)** ← **START HERE** if you're preparing Word documents for conversion
+
+### For Developers
+
+Full technical documentation available in `/specs/001-privacy-notice-generator/`:
 
 - [Feature Specification](./specs/001-privacy-notice-generator/spec.md)
 - [Implementation Plan](./specs/001-privacy-notice-generator/plan.md)
