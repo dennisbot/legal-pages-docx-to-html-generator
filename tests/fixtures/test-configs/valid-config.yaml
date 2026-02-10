@@ -1,0 +1,52 @@
+version: "1.0.0"
+
+colors:
+  text: "#2c3e50"
+  textMuted: "#7f8c8d"
+  headings: "#1a252f"
+  links: "#2980b9"
+  linksHover: "#1f618d"
+  background: "#ffffff"
+  tableHeader: "#ecf0f1"
+  tableRowAlt: "#f8f9fa"
+  focus: "#2980b9"
+
+typography:
+  fontFamily: "Georgia, serif"
+  baseFontSize: 16
+  baseLineHeight: 1.6
+  scaleH1: 2.5
+  scaleH2: 2.0
+  scaleH3: 1.5
+  scaleH4: 1.25
+  fontWeightNormal: 400
+  fontWeightBold: 700
+  fontWeightHeadings: 600
+
+spacing:
+  xs: 4
+  sm: 8
+  md: 16
+  lg: 24
+  xl: 32
+  xxl: 48
+
+breakpoints:
+  tiny: 375
+  small: 768
+  medium: 992
+  landscape: 1024
+  large: 1200
+
+tables:
+  borderColor: "#bdc3c7"
+  borderWidth: 1
+  cellPadding: 12
+  headerBackground: "#ecf0f1"
+  headerTextColor: "#2c3e50"
+  stripedRows: true
+  mobileScrollable: true
+
+bem:
+  baseClass: "text-block-content"
+  variantClass: "custom-content"
