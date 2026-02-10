@@ -1,10 +1,10 @@
 {
-  "name": "privacy-notice-gen",
+  "name": "legal-pages-gen",
   "version": "2.0.0",
-  "description": "Convert Word documents (.docx) to styled, accessible HTML fragments for Umbraco RTE with BEM conventions",
+  "description": "Convert legal document Word files (.docx) to styled, accessible HTML fragments for Umbraco RTE with BEM conventions and WCAG 2.1 AA compliance",
   "main": "dist/index.js",
   "bin": {
-    "privacy-notice-gen": "./dist/cli/index.js"
+    "legal-pages-gen": "./dist/cli/index.js"
   },
   "type": "module",
   "scripts": {

@@ -40,9 +40,9 @@ export function getVersion(): string {
  */
 export function parseArguments(args: string[]): CLIArguments {
   const parsed = yargs(hideBin(args))
-    .scriptName('privacy-notice-gen')
+    .scriptName('legal-pages-gen')
     .usage('Usage: $0 <file.docx> [options]')
-    .command('$0 <inputFile>', 'Convert a Word document to HTML', (yargs) => {
+    .command('$0 <inputFile>', 'Convert a legal document Word file to HTML', (yargs) => {
       return yargs.positional('inputFile', {
         describe: 'Path to the .docx file to convert',
         type: 'string',
@@ -65,11 +65,11 @@ export function parseArguments(args: string[]): CLIArguments {
     .help('help')
     .alias('help', 'h')
     .example([
-      ['$0 privacy-notice.docx', 'Convert document to HTML fragment (stdout)'],
-      ['$0 privacy-notice.docx > output.html', 'Save HTML to file'],
-      ['$0 privacy-notice.docx | clip', 'Copy HTML to clipboard (Windows)'],
-      ['$0 privacy-notice.docx --config brand.yaml', 'Use custom configuration'],
-      ['$0 privacy-notice.docx --preview > preview.html', 'Generate preview page'],
+      ['$0 legal-document.docx', 'Convert document to HTML fragment (stdout)'],
+      ['$0 legal-document.docx > output.html', 'Save HTML to file'],
+      ['$0 legal-document.docx | clip', 'Copy HTML to clipboard (Windows)'],
+      ['$0 legal-document.docx --config brand.yaml', 'Use custom configuration'],
+      ['$0 legal-document.docx --preview > preview.html', 'Generate preview page'],
     ])
     .epilog(`For more information, visit: ${GITHUB_DOCS_URL}`)
     .strict()

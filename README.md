@@ -1,10 +1,13 @@
-# Privacy Notice HTML Generator
+# Legal Pages HTML Generator
 
-Convert Word documents (.docx) to styled, accessible HTML fragments for Umbraco RTE with BEM conventions.
+Convert legal document Word files (.docx) to styled, accessible HTML fragments for Umbraco RTE with BEM conventions and WCAG 2.1 AA compliance.
+
+**Package**: `legal-pages-gen`
+**Repository**: https://github.com/dennisbot/legal-pages-docx-to-html-generator
 
 ## Status
 
-🚧 **In Development** - Phase 2 (Foundational) complete. Phase 3 (MVP conversion) in progress.
+✅ **Version 2.0.0** - Production ready with BEM table styling and advanced features.
 
 ## Quick Start
 
@@ -16,9 +19,12 @@ Convert Word documents (.docx) to styled, accessible HTML fragments for Umbraco 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd privacy-notice-generator
+# Install globally via npm
+npm install -g legal-pages-gen
+
+# Or clone and build locally
+git clone https://github.com/dennisbot/legal-pages-docx-to-html-generator.git
+cd legal-pages-docx-to-html-generator
 
 # Install dependencies
 npm install
@@ -27,7 +33,7 @@ npm install
 npm run build
 
 # Run the CLI tool
-npm run dev -- privacy-notice.docx
+legal-pages-gen legal-document.docx > output.html
 ```
 
 ### Development

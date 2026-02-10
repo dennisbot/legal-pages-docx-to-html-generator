@@ -23,7 +23,7 @@ describe('CLI Integration Tests', () => {
     it('should display help message with --help flag', async () => {
       const { stdout } = await execAsync(`node ${CLI_PATH} --help`);
       expect(stdout).toContain('Usage:');
-      expect(stdout).toContain('privacy-notice-gen');
+      expect(stdout).toContain('legal-pages-gen');
     });
   });
 

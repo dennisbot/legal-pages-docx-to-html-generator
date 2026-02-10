@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ⚠️ BREAKING CHANGES
 
+#### Package Renamed: `privacy-notice-gen` → `legal-pages-gen`
+
+**What Changed:**
+- Package name changed from `privacy-notice-gen` to `legal-pages-gen`
+- CLI command changed from `privacy-notice-gen` to `legal-pages-gen`
+- Repository URL: https://github.com/dennisbot/legal-pages-docx-to-html-generator
+
+**Why This Change:**
+The new name better reflects the broader scope of the tool for all legal documents (privacy notices, terms of service, cookie policies, etc.), not just privacy notices.
+
+**Migration Steps:**
+1. Uninstall old package: `npm uninstall -g privacy-notice-gen`
+2. Install new package: `npm install -g legal-pages-gen`
+3. Update scripts/commands from `privacy-notice-gen` to `legal-pages-gen`
+4. Update any documentation or automation referencing the old command name
+
+---
+
 #### Table CSS Selectors Changed to BEM Methodology
 
 **What Changed:**
@@ -222,5 +240,5 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 ---
 
-[2.0.0]: https://github.com/your-org/privacy-notice-gen/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/your-org/privacy-notice-gen/releases/tag/v1.0.0
+[2.0.0]: https://github.com/dennisbot/legal-pages-docx-to-html-generator/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/dennisbot/legal-pages-docx-to-html-generator/releases/tag/v1.0.0
